@@ -13,6 +13,7 @@ apply plugin: 'maven-publish'
 apply plugin: 'com.jfrog.bintray'
 
 //项目相关信息
+def includeJAR = false
 def pomLibGroupName = 'com.github.gzuliyujiang'
 def pomLibArtifactId = rootProject.name
 def pomLibVersion = '1.0.0.' + new Date().format("yyyyMMddHHmm")
@@ -62,7 +63,9 @@ afterEvaluate {
                 version = pomLibVersion
                 description = pomLibDescription
                 artifactId pomLibArtifactId
-                artifact "${buildDir}/intermediates/aar_main_jar/release/classes.jar"
+                if (includeJAR) {
+                    artifact "${buildDir}/intermediates/aar_main_jar/release/classes.jar"
+                }
                 artifact sourcesJar
                 pom.withXml {
                     def root = asNode()
