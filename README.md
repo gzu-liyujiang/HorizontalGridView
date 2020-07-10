@@ -6,8 +6,6 @@
 
 Android 水平滚动的九宫格列表视图，带滚动指示器，可用于首页金刚区。
 
-![效果图](/ScreenGif.gif) 
-
 ```groovy
 allprojects {
     repositories {
@@ -20,7 +18,9 @@ dependencies {
 }
 ```
 
-### 示例
+### 简单示例
+
+![效果图](/ScreenGif.gif) 
 
 ```xml
     <com.github.gzuliyujiang.hgv.HorizontalGridView
@@ -47,6 +47,63 @@ dependencies {
                 Toast.makeText(parent.getContext(), "position=" + position, Toast.LENGTH_SHORT).show();
             }
         });
+```
+
+### 自定义适配器
+
+![效果图](/ScreenGif2.gif) 
+
+```java
+public class BlockGridAdapter extends AbsGridAdapter<BlockEntity> {
+
+    public BlockGridAdapter(List<BlockEntity> data) {
+        super(data);
+    }
+
+    @NonNull
+    @Override
+    public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent) {
+        View view = View.inflate(parent.getContext(), R.layout.adapter_home_bolck_grid, null);
+        return new ViewHolder(view);
+    }
+
+    @Override
+    public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
+        ImageView imageView = holder.findView(R.id.home_block_icon);
+        UiUxUtils.adaptGifImage(imageView, getItem(position).getImgUrl());
+        TextView textView = holder.findView(R.id.home_block_text);
+        textView.setText(getItem(position).getTitle());
+    }
+
+}
+```
+```java
+    private void fetchGridBlock() {
+        blockGridView.setVisibility(View.GONE);
+        handleGridBlock(JsonStorage.readHomeBlock());
+        HomeRepository.getBlock(new SimpleCallback<List<BlockEntity>>() {
+            @Override
+            public void onDataSuccess(List<BlockEntity> data) {
+                JsonStorage.saveHomeBlock(data);
+                handleGridBlock(data);
+            }
+        });
+    }
+
+    private void handleGridBlock(List<BlockEntity> data) {
+        if (data == null || data.size() == 0) {
+            return;
+        }
+        blockGridView.setVisibility(View.VISIBLE);
+        blockGridView.setOnItemClickListener((parent, view, position) -> {
+            BlockEntity item = data.get(position);
+            ArrayMap<String, String> map = new ArrayMap<>();
+            map.put("linkUrl", item.getLinkUrl());
+            JAnalyticsSDK.onCountEvent(activity, "home_block", map);
+            RouteUtils.openJump(activity, item);
+        });
+        blockGridView.setAdapter(new BlockGridAdapter(data));
+    }
 ```
 
 ### 指示器
