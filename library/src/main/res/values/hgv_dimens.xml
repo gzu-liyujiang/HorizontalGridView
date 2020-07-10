@@ -14,8 +14,10 @@
   -->
 
 <resources>
-    <color name="colorPrimary">#6200EE</color>
-    <color name="colorPrimaryDark">#3700B3</color>
-    <color name="colorAccent">#03DAC5</color>
-    <color name="hgv_indicator_thumb_color">@color/colorPrimaryDark</color>
+    <dimen name="hgv_grid_vertical_spacing">14dp</dimen>
+    <dimen name="hgv_indicator_margin_top">14dp</dimen>
+    <dimen name="hgv_indicator_radius">2dp</dimen>
+    <dimen name="hgv_indicator_width">80dp</dimen>
+    <dimen name="hgv_indicator_height">4dp</dimen>
+    <dimen name="hgv_indicator_thumb_width">20dp</dimen>
 </resources>

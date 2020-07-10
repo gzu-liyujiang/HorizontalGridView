@@ -15,7 +15,7 @@ apply plugin: 'com.jfrog.bintray'
 //项目相关信息
 def pomLibGroupName = 'com.github.gzuliyujiang'
 def pomLibArtifactId = rootProject.name
-def pomLibVersion = new Date().format("yyyy.M.d")
+def pomLibVersion = '1.0.0.' + new Date().format("yyyyMMddHHmm")
 def pomLibDescription = "TODO description: ${rootProject.name} for Android"
 def pomSiteUrl = "https://github.com/gzu-liyujiang/${rootProject.name}"
 def pomGitUrl = "https://github.com/gzu-liyujiang/${rootProject.name}.git"

@@ -5,8 +5,6 @@ apply from: "${rootDir}/gradle/resguard.gradle"
 dependencies {
     implementation project(":library")
     implementation "androidx.appcompat:appcompat:$androidxCoreVersion"
-    implementation 'com.github.gzu-liyujiang:Logger:2020.06.14'
-    runtimeOnly 'com.orhanobut:logger:2.2.0'
 }
 
 android {
@@ -24,6 +22,7 @@ android {
 
     defaultConfig {
         multiDexEnabled false
+        applicationId appPackageName
         signingConfigs {
             //直接使用真实的密钥库文件，避免微信、高德地图等第三方SDK校验失败
             releaseConfig {
@@ -67,9 +66,6 @@ android {
                 }
             }
         }
-        applicationId appPackageName
-        versionCode new Date().format("yyyyMMdd") as int
-        versionName new Date().format("yyyy.M.d") as String
         //按不同维度打包，必须添加，不添加编译不通过，后面的数值任何字符串都可以
         flavorDimensions "MODE"
         manifestPlaceholders = [

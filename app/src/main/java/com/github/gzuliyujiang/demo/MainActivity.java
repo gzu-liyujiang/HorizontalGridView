@@ -14,10 +14,13 @@
 package com.github.gzuliyujiang.demo;
 
 import android.os.Bundle;
+import android.view.View;
+import android.widget.GridView;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.github.gzuliyujiang.logger.Logger;
+import com.github.gzuliyujiang.hgv.HorizontalGridView;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -25,8 +28,22 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        Logger.print("测试");
-        Logger.print(BuildConfig.BUILD_DATE);
+        HorizontalGridView horizontalGridView = findViewById(R.id.main_horizontal_grid);
+        int length = 14;
+        int[] icons = new int[length];
+        CharSequence[] texts = new CharSequence[length];
+        for (int i = 0; i < length; i++) {
+            icons[i] = android.R.drawable.sym_def_app_icon;
+            texts[i] = "测试" + i;
+        }
+        horizontalGridView.setData(icons, texts, 2, 6);
+        //noinspection Convert2Lambda
+        horizontalGridView.setOnItemClickListener(new HorizontalGridView.OnItemClickListener() {
+            @Override
+            public void onItemClick(GridView parent, View view, int position) {
+                Toast.makeText(parent.getContext(), "position=" + position, Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 
 }

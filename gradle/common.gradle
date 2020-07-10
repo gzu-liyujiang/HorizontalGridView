@@ -26,13 +26,13 @@ android {
     compileSdkVersion androidCompileSdkVersion as int
     buildToolsVersion androidBuildToolsVersion
     // 配置资源名前缀提示，避免资源名重复
-    resourcePrefix project.name == 'app' ? '' : project.name.toLowerCase() + '_'
+    //resourcePrefix project.name == 'app' ? '' : project.name.toLowerCase() + '_'
 
     defaultConfig {
         minSdkVersion androidMinSdkVersion as int
         targetSdkVersion androidTargetSdkVersion as int
         versionCode Integer.parseInt(new Date().format("yyyyMMdd"))
-        versionName new Date().format("yyyy.M.d")
+        versionName appVersionName + '.' + new Date().format("yyyyMMddHHmm")
     }
 
     sourceSets {
@@ -82,9 +82,10 @@ android {
         exclude 'androidsupportmultidexversion.txt'
         exclude 'LICENSE*'
         exclude 'junit/*/*'
+        exclude 'publicsuffixes.gz'
+        exclude 'okhttp3/internal/publicsuffix/publicsuffixes.gz'
         //exclude 'assets/libwbsafeedit_x86'
         //exclude 'assets/libwbsafeedit_x86_64'
-        //exclude 'okhttp3/internal/publicsuffix/publicsuffixes.gz'
     }
 
 }

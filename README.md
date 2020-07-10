@@ -1,8 +1,26 @@
-# 安卓项目工程模板
+# HorizontalGridView
 
-![Release APK](https://github.com/gzu-liyujiang/AliyunGradleConfig/workflows/Release%20APK/badge.svg) ![Gradle Package](https://github.com/gzu-liyujiang/AliyunGradleConfig/workflows/Gradle%20Package/badge.svg)
+![Release APK](https://github.com/gzu-liyujiang/HorizontalGridView/workflows/Release%20APK/badge.svg)
+![Gradle Package](https://github.com/gzu-liyujiang/HorizontalGridView/workflows/Gradle%20Package/badge.svg)
+[![jitpack](https://jitpack.io/v/gzu-liyujiang/HorizontalGridView.svg)](https://jitpack.io/#gzu-liyujiang/HorizontalGridView)
 
-详情可查看[模板介绍](https://gzu-liyujiang.github.io/AliyunGradleConfig/)
+Android 水平滚动的九宫格列表视图，带滚动指示器，可用于首页金刚区。
+
+![效果图](/ScreenGif.gif) 
+
+```groovy
+allprojects {
+    repositories {
+        maven { url 'https://jitpack.io' }
+    }
+}
+
+dependencies {
+    implementation 'com.github.gzu-liyujiang:HorizontalGridView:1.0.0.20200710'
+}
+
+
+```
 
 ## License
 

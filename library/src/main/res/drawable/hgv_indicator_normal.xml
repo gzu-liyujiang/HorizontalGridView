@@ -13,9 +13,10 @@
   ~
   -->
 
-<resources>
-    <color name="colorPrimary">#6200EE</color>
-    <color name="colorPrimaryDark">#3700B3</color>
-    <color name="colorAccent">#03DAC5</color>
-    <color name="hgv_indicator_thumb_color">@color/colorPrimaryDark</color>
-</resources>
+<shape xmlns:android="http://schemas.android.com/apk/res/android">
+    <corners android:radius="@dimen/hgv_indicator_radius" />
+    <solid android:color="@color/hgv_indicator_normal_color" />
+    <size
+        android:width="@dimen/hgv_indicator_width"
+        android:height="@dimen/hgv_indicator_height" />
+</shape>

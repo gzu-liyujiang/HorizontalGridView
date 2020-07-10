@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  ~ Copyright (c) 2019-2020 gzu-liyujiang <1032694760@qq.com>
+  ~
+  ~ The software is licensed under the Mulan PSL v1.
+  ~ You can use this software according to the terms and conditions of the Mulan PSL v1.
+  ~ You may obtain a copy of Mulan PSL v1 at:
+  ~     http://license.coscl.org.cn/MulanPSL
+  ~ THIS SOFTWARE IS PROVIDED ON AN "AS IS" BASIS, WITHOUT WARRANTIES OF ANY KIND, EITHER EXPRESS OR
+  ~ IMPLIED, INCLUDING BUT NOT LIMITED TO NON-INFRINGEMENT, MERCHANTABILITY OR FIT FOR A PARTICULAR
+  ~ PURPOSE.
+  ~ See the Mulan PSL v1 for more details.
+  ~
+  -->
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:gravity="center"
+    android:orientation="vertical"
+    tools:ignore="UseCompoundDrawables">
+
+    <ImageView
+        android:id="@+id/hgv_item_icon"
+        android:layout_width="41dp"
+        android:layout_height="41dp"
+        android:scaleType="fitXY"
+        android:src="@android:drawable/ic_menu_report_image"
+        tools:ignore="ContentDescription" />
+
+    <TextView
+        android:id="@+id/hgv_item_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="6dp"
+        android:text="@android:string/unknownName"
+        android:textColor="#ff636363"
+        android:textSize="12sp" />
+
+</LinearLayout>

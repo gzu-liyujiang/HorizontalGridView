@@ -1,12 +1,27 @@
 <?xml version="1.0" encoding="utf-8"?>
+<!--
+  ~ Copyright (c) 2019-2020 gzu-liyujiang <1032694760@qq.com>
+  ~
+  ~ The software is licensed under the Mulan PSL v1.
+  ~ You can use this software according to the terms and conditions of the Mulan PSL v1.
+  ~ You may obtain a copy of Mulan PSL v1 at:
+  ~     http://license.coscl.org.cn/MulanPSL
+  ~ THIS SOFTWARE IS PROVIDED ON AN "AS IS" BASIS, WITHOUT WARRANTIES OF ANY KIND, EITHER EXPRESS OR
+  ~ IMPLIED, INCLUDING BUT NOT LIMITED TO NON-INFRINGEMENT, MERCHANTABILITY OR FIT FOR A PARTICULAR
+  ~ PURPOSE.
+  ~ See the Mulan PSL v1 for more details.
+  ~
+  -->
+
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <TextView
+    <com.github.gzuliyujiang.hgv.HorizontalGridView
+        android:id="@+id/main_horizontal_grid"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_centerInParent="true"
-        android:text="Hello World!" />
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="10dp" />
 
 </RelativeLayout>

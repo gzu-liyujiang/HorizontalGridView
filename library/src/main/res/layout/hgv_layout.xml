@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  ~ Copyright (c) 2019-2020 gzu-liyujiang <1032694760@qq.com>
+  ~
+  ~ The software is licensed under the Mulan PSL v1.
+  ~ You can use this software according to the terms and conditions of the Mulan PSL v1.
+  ~ You may obtain a copy of Mulan PSL v1 at:
+  ~     http://license.coscl.org.cn/MulanPSL
+  ~ THIS SOFTWARE IS PROVIDED ON AN "AS IS" BASIS, WITHOUT WARRANTIES OF ANY KIND, EITHER EXPRESS OR
+  ~ IMPLIED, INCLUDING BUT NOT LIMITED TO NON-INFRINGEMENT, MERCHANTABILITY OR FIT FOR A PARTICULAR
+  ~ PURPOSE.
+  ~ See the Mulan PSL v1 for more details.
+  ~
+  -->
+
+<merge xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <com.github.gzuliyujiang.hgv.ExHorizontalScrollView
+        android:id="@+id/hgv_scroll"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:overScrollMode="never"
+        android:scrollbars="none">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <com.github.gzuliyujiang.hgv.NoScrollGridView
+                android:id="@+id/hgv_grid"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:listSelector="@android:color/transparent"
+                android:verticalSpacing="@dimen/hgv_grid_vertical_spacing" />
+
+        </LinearLayout>
+
+    </com.github.gzuliyujiang.hgv.ExHorizontalScrollView>
+
+    <SeekBar
+        android:id="@+id/hgv_indicator"
+        android:layout_width="@dimen/hgv_indicator_width"
+        android:layout_height="@dimen/hgv_indicator_height"
+        android:layout_below="@+id/hgv_scroll"
+        android:layout_centerHorizontal="true"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="@dimen/hgv_indicator_margin_top"
+        android:maxHeight="@dimen/hgv_indicator_height"
+        android:minHeight="@dimen/hgv_indicator_height"
+        android:progress="0"
+        android:progressDrawable="@drawable/hgv_indicator_normal"
+        android:thumb="@drawable/hgv_indicator_thumb"
+        android:visibility="visible" />
+
+</merge>
