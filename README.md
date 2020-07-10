@@ -16,7 +16,7 @@ allprojects {
 }
 
 dependencies {
-    implementation 'com.github.gzu-liyujiang:HorizontalGridView:1.0.0.20200710'
+    implementation 'com.github.gzu-liyujiang:HorizontalGridView:1.0.0.20200710@aar'
 }
 ```
 
