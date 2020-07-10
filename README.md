@@ -25,7 +25,7 @@ dependencies {
 ```xml
     <com.github.gzuliyujiang.hgv.HorizontalGridView
         android:id="@+id/main_horizontal_grid"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
         android:layout_marginBottom="10dp" />
