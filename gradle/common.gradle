@@ -32,7 +32,7 @@ android {
         minSdkVersion androidMinSdkVersion as int
         targetSdkVersion androidTargetSdkVersion as int
         versionCode Integer.parseInt(new Date().format("yyyyMMdd"))
-        versionName appVersionName + '.' + new Date().format("yyyyMMddHHmm")
+        versionName appVersionName + '.' + versionCode
     }
 
     sourceSets {
