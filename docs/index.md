@@ -1,25 +1,23 @@
 # 安卓项目工程模板
 
-[![Release APK](https://github.com/gzu-liyujiang/AliyunGradleConfig/workflows/Release%20APK/badge.svg)](https://github.com/gzu-liyujiang/AliyunGradleConfig/actions)
-[![Gradle Package](https://github.com/gzu-liyujiang/AliyunGradleConfig/workflows/Gradle%20Package/badge.svg)](https://github.com/gzu-liyujiang/AliyunGradleConfig/actions)
-[![MulanPSL](https://img.shields.io/badge/license-MulanPSL-blue.svg)](http://license.coscl.org.cn/MulanPSL)
-[![Anti-996](https://img.shields.io/badge/license-Anti%20996-blue.svg)](https://github.com/996icu/996.ICU/blob/master/LICENSE)
-
 - 阿里云远程仓库加速
-- 发布到Maven仓库
+- 发布到Maven仓库：Github Packages、Jitpack、Jcenter Bintray
 - 代码混淆、资源混淆
-- 多维度打包APK
+- 多维度打包APK：区分测试环境及线上环境
 - 自动化工作流：Github Actions
 - 依赖冲突解决
 
 ### 项目模板文件介绍
 
+- .github/workflows/gradle-publish.yml  基于GithubActions及GithubPackages进行打包发布
 - .gitignore  通用的GIT版本控制文件忽略规则
-- build.gradle Gradle项目构建管理
+- build.gradle 项目构建管理
+- gradle.properties 通用的项目配置
 - app/proguard-common.pro  通用的混淆规则
-- app/build.gradle 多维度打包APK
-- gradle/publish.gradle Gradle项目发布到Maven仓库及上传到jcenter
-- gradle/resguard.gradle Gradle项目资源文件混淆配置管理
+- app/build.gradle 通用的APK打包
+- gradle/common.gradle 通用的项目配置
+- gradle/publish.gradle 项目发布到Maven仓库及上传到jcenter
+- gradle/resguard.gradle 项目资源文件混淆配置管理
 
 在天朝使用jcenter、mavenCentral及google三个远程仓库，Gradle Sync会很慢，google仓库甚至需要[科学上网](https://github.com/hugetiny/awesome-vpn)才能访问。为了加快Gradle Sync速度，一招教你优先用 [阿里云仓库服务](https://maven.aliyun.com/mvn/view) 的仓库作为下载源。
 
@@ -102,7 +100,7 @@ allprojects {
 
 ### 项目发布到Maven仓库
 
-手动执行命令`gradlew publishToMavenLocal`可以发布到`mavenLocal()`，手动执行命令`gradlew bintrayPublish`可以发布到`jcenter()`。项目发布到`jitpack`前，需要基于某个`git commit`创建相应发布版本的`tag`，推送该`tag`才会触发`jitpack`的构建。
+手动执行命令`gradlew publishToMavenLocal`可以发布到`mavenLocal()`，手动执行命令`gradlew bintrayUpload`可以发布到`jcenter()`。项目发布到`jitpack`前，需要基于某个`git commit`创建相应发布版本的`tag`，推送该`tag`才会触发`jitpack`的构建。
 
 - 项目发布到`jitpack`，需要使用github账号[登录到JitPack](https://jitpack.io)，`Look up`相应的库然后去`Get it`。
 - 项目发布到`jcenter`，需要[登录到Bintray](https://bintray.com/login)后选择`maven`创建相应应的包(Add a Package)。
@@ -110,20 +108,22 @@ allprojects {
 
 ```groovy
 //项目相关信息
+def includeJar = false
 def pomLibGroupName = 'com.github.gzuliyujiang'
 def pomLibArtifactId = rootProject.name
-def pomLibVersion = new Date().format("yyyy.M.d")
+def pomLibVersion = rootProject.getGitLatestTag()
 def pomLibDescription = "TODO description: ${rootProject.name} for Android"
 def pomSiteUrl = "https://github.com/gzu-liyujiang/${rootProject.name}"
 def pomGitUrl = "https://github.com/gzu-liyujiang/${rootProject.name}.git"
 def pomIssueUrl = "https://github.com/gzu-liyujiang/${rootProject.name}/issues"
 def pomReleaseNotesUrl = "https://github.com/gzu-liyujiang/${rootProject.name}/README.md"
-def pomLicenses = ["MIT"]
+def pomLicenses = ["Apache License 2.0", "Mulan PSL v1"]
 //开发者信息
 def pomDeveloperId = 'liyujiang-gzu'
 def pomDeveloperOrg = 'gzu-liyujiang'
 def pomDeveloperName = '李玉江'
 def pomDeveloperEmail = '1032694760@qq.com'
+......
 ```
 
 ### License
@@ -131,7 +131,7 @@ def pomDeveloperEmail = '1032694760@qq.com'
 ```text
 Copyright (c) 2019-2020 gzu-liyujiang <1032694760@qq.com>
 
-AliyunGradleConfig is licensed under the Mulan PSL v1.
+The software is licensed under the Mulan PSL v1.
 You can use this software according to the terms and conditions of the Mulan PSL v1.
 You may obtain a copy of Mulan PSL v1 at:
     http://license.coscl.org.cn/MulanPSL

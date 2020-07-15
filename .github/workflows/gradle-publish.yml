@@ -21,7 +21,11 @@ jobs:
 
     - name: Grant execute permission for gradlew
       run: chmod +x gradlew
-    - name: Publish to maven local
-      run: ./gradlew build publishToMavenLocal --warning-mode all
- 
-        
+    - name: Build with Gradle
+      run: ./gradlew build
+    #- name: Publish to maven local
+    #  run: ./gradlew publishToMavenLocal --warning-mode all
+    - name: Publish to GitHub Packages
+      env:
+        TOKEN: ${{ secrets.TOKEN }}
+      run: ./gradlew publishReleasePublicationToGitHub --warning-mode all

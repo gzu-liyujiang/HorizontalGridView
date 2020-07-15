@@ -31,8 +31,12 @@ android {
     defaultConfig {
         minSdkVersion androidMinSdkVersion as int
         targetSdkVersion androidTargetSdkVersion as int
-        versionCode Integer.parseInt(new Date().format("yyyyMMdd"))
-        versionName appVersionName + '.' + versionCode
+        versionCode rootProject.gitGitCommitNumber()
+        versionName rootProject.getGitLatestTag()
+        println("versionCode: $versionCode\nversionName: $versionName")
+        buildConfigField "String", "GIT_BRANCH", '"' + rootProject.getGitBranch() + '"'
+        buildConfigField "String", "GIT_LATEST_COMMIT_HASH", '"' + rootProject.getGitLatestCommitHash() + '"'
+        buildConfigField "String", "GIT_LATEST_COMMIT_HASH_SHORT", '"' + rootProject.getGitLatestCommitHashShort() + '"'
     }
 
     sourceSets {

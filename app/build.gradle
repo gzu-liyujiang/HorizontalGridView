@@ -22,7 +22,8 @@ android {
 
     defaultConfig {
         multiDexEnabled false
-        applicationId appPackageName
+        //按不同维度打包，必须添加，不添加编译不通过，后面的数值任何字符串都可以
+        flavorDimensions "MODE", "CHANNEL"
         signingConfigs {
             //直接使用真实的密钥库文件，避免微信、高德地图等第三方SDK校验失败
             releaseConfig {
@@ -61,34 +62,45 @@ android {
                     keyAlias signingKeyAlias
                     keyPassword signingKeyPassword
                     v1SigningEnabled true
-                    // 注：直接在IDE里运行APP，启用V2签名的话生成的APK里不会有签名信息的？
+                    // 注：直接在IDE里运行APP，启用V2签名的话生成的APK里可能不会有签名信息的？
                     v2SigningEnabled true
                 }
             }
         }
-        //按不同维度打包，必须添加，不添加编译不通过，后面的数值任何字符串都可以
-        flavorDimensions "MODE"
+        // 修改 AndroidManifest.xml 里的变量，占位值无法覆盖的坑可参阅 https://www.jianshu.com/p/1d5271c2c366
         manifestPlaceholders = [
-                MY_CHANNEL: "default",
+                MY_CHANNEL: "unknown",
         ]
-        buildConfigField "String", "BUILD_DATE", '"' + new Date().format("yyyy.MM.dd HH:mm:sss") + '"'
     }
 
-    // 打包纬度，会按纬度名称字母顺序执行
+    // 打包维度列表，会按维度名字母顺序执行，最终发布的具体渠道包的生成可以借助360加固等工具修改
     productFlavors {
-        publisher {
-            dimension "MODE"
-            manifestPlaceholders = [
-                    MY_CHANNEL: "publisher",
-            ]
-            buildConfigField "String", "ENVIRONMENT", '"pub"'
-        }
+        // 开发模式/测试环境
         developer {
             dimension "MODE"
+            // 环境信息
+            buildConfigField "String", "ENVIRONMENT", '"dev"'
+            // 修改 AndroidManifest.xml 里的变量
             manifestPlaceholders = [
                     MY_CHANNEL: "developer",
             ]
-            buildConfigField "String", "ENVIRONMENT", '"dev"'
+        }
+        // 发布模式/正式环境
+        publisher {
+            dimension "MODE"
+            // 环境信息
+            buildConfigField "String", "ENVIRONMENT", '"prod"'
+            // 修改 AndroidManifest.xml 里的变量
+            manifestPlaceholders = [
+                    MY_CHANNEL: "publisher",
+            ]
+        }
+        // 官方发布渠道
+        official {
+            dimension "CHANNEL"
+            manifestPlaceholders = [
+                    MY_CHANNEL: "official",
+            ]
         }
     }
 
@@ -120,7 +132,19 @@ android {
 
 }
 
+// 批量处理渠道
+println "********** product flavors **********"
+android.productFlavors.all { flavor ->
+    String channelName = flavor.name
+    println "flavor name is $channelName"
+    //替换AndroidManifest.xml中的默认值
+    flavor.manifestPlaceholders = [
+            MY_CHANNEL: channelName,
+    ]
+}
+
 //APK重命名
+println "********** apk outputs **********"
 android.applicationVariants.all { variant ->
     variant.outputs.all {
         if (variant.buildType.name == 'debug') {
@@ -128,11 +152,12 @@ android.applicationVariants.all { variant ->
             return
         }
         if (outputFileName != null && outputFileName.endsWith(".apk")) {
-            def versionCode = android.defaultConfig.versionCode
-            def versionName = android.defaultConfig.versionName
-            String fileName = "${outputFile.name.replace('-release.apk', '')}-v${versionName}-built${versionCode}.apk"
+            def versionName = rootProject.getGitLatestTag();
+            def date = new Date().format("yyyyMMddHHmm", TimeZone.getTimeZone("GMT+08:00"))
+            String fileName = "${outputFile.name.replace('-release.apk', '')}-v${versionName}-${date}.apk"
             //这里只能用相对路径，不然报错
             outputFileName = new File(fileName)
+            println "outputFile=$outputFile"
         }
     }
     //APK构建完成后，备份release版本到指定目录
@@ -154,6 +179,8 @@ android.applicationVariants.all { variant ->
                             from outputFile
                             into targetDir
                         }
+                        File copyOutputFile = new File(targetDir, outputFile.name)
+                        println "copyOutputFile=$copyOutputFile"
                     }
                 }
             }
